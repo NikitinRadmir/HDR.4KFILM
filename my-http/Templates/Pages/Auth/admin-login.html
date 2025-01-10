@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<title>Вход для Админа- HDR4FILMS</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	  <link rel="shortcut icon" href="/assets/images/favicon.png" />
+	  <link href="../assets/style/styles.css" type="text/css" rel="stylesheet" />
+	  <link href="..assets/style/engine.css" type="text/css" rel="stylesheet" />
+	  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700&amp;subset=cyrillic" rel="stylesheet"> 
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+<style>
+body.js > div[id*=epom]{height:0px !important; padding-top:0px !important; margin-top:30px !important; z-index: 1 !important;}
+header#header{max-width: none !important;}
+@media (max-width: 768px) {
+  div[id*=epom].epom-brend{margin-top: 70px;}
+  .krks-in{margin-top: 90px;}
+}
+</style>
+<script src="/assets/js/filter-xf.js"></script>
+<script src="/assets/js/libs.js"></script>
+<div class="krks123 have-brand">
+	<div class="shap-outer">
+	<header class="shap" id="header">
+		<div class="shap-in center clearfix">
+		
+			<a href="#" class="logotype" title="На главную">4к фильм онлайн</a>
+			<div class="btn-menu"><span class="fa fa-bars"></span></div>
+			<div class="menu-overlay" id="menu-overlay">
+				<div class="menu-content">
+					<div class="menu-item active">ГЛАВНАЯ</div>
+					<div class="menu-item">НОВИНКИ</div>
+					<div class="menu-item">ЖАНРЫ</div>
+					<div class="menu-item">ФИЛЬМЫ</div>
+					<div class="menu-item">МУЛЬТФИЛЬМЫ</div>
+					<div class="menu-item">СЕРИАЛЫ</div>
+				</div>
+			</div>
+			<ul class="shtur clearfix" id="nav-menu">
+				<li><a href="#" class="active" id="mainLink">Главная</a></li>
+				<li><a href="#">новинки</a></li>
+				<li><a href="#">жанры</a></li>
+				<li><a href="#">фильмы</a></li>
+				<li><a href="#">мультфильмы</a></li>
+				<li><a href="#">сериалы</a></li>
+			</ul>
+			
+			<div class="shap-right" id="hd-right">
+				<div class="search-wrap">
+					<form id="quicksearch">
+						<input type="hidden" name="do" value="search" />
+						<input type="hidden" name="subaction" value="search" />
+						<div class="search-box">
+							<input id="story" name="story" placeholder="Введите название" type="text" />
+							<button title="Найти"><span class="fa fa-search"></span></button>
+						</div>
+					</form>
+				</div>
+				
+			</div>
+			
+		</div>
+	</header>
+	</div>
+	
+	
+	<!-- END HEADER -->
+
+
+    <div class="login-box" id="login-box" title="Введите данные администратора">
+        <div class="login-header">
+            <span>Введите данные администратора</span>
+        </div>
+        <!--ERROR: ADMIN DOESN'T EXIST-->
+        <form method="post" action="">
+            <label for="login">Login:</label>
+            <input type="text" name="login" id="login" placeholder="Ваш логин" required/>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" placeholder="Ваш пароль" required/>
+            <br>
+            <button type="submit" title="Вход">Login</button>
+            
+        </form>
+    </div>
+
+<script src="assets/js/libs.js"></script>
+
+
+</body>
+</html>

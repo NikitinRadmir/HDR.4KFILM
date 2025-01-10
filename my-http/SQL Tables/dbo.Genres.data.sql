@@ -1,0 +1,15 @@
+SET IDENTITY_INSERT [dbo].[Genres] ON
+INSERT INTO [dbo].[Genres] ([Id], [GenreName]) VALUES (1, N'Аниме')
+INSERT INTO [dbo].[Genres] ([Id], [GenreName]) VALUES (2, N'Биография')
+INSERT INTO [dbo].[Genres] ([Id], [GenreName]) VALUES (3, N'Боевик')
+INSERT INTO [dbo].[Genres] ([Id], [GenreName]) VALUES (4, N'Фэнтези')
+INSERT INTO [dbo].[Genres] ([Id], [GenreName]) VALUES (5, N'Комедии')
+INSERT INTO [dbo].[Genres] ([Id], [GenreName]) VALUES (6, N'Семейные')
+INSERT INTO [dbo].[Genres] ([Id], [GenreName]) VALUES (7, N'Ужасы')
+INSERT INTO [dbo].[Genres] ([Id], [GenreName]) VALUES (8, N'Триллеры')
+INSERT INTO [dbo].[Genres] ([Id], [GenreName]) VALUES (9, N'Военные')
+INSERT INTO [dbo].[Genres] ([Id], [GenreName]) VALUES (10, N'Детективы')
+INSERT INTO [dbo].[Genres] ([Id], [GenreName]) VALUES (11, N'Документальные')
+INSERT INTO [dbo].[Genres] ([Id], [GenreName]) VALUES (12, N'Приключения')
+INSERT INTO [dbo].[Genres] ([Id], [GenreName]) VALUES (13, N'Криминальные')
+SET IDENTITY_INSERT [dbo].[Genres] OFF

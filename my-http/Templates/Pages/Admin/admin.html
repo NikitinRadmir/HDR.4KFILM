@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>AdminPanel</title>
+    <meta charset="UTF-8">
+	<link rel="stylesheet" href="assets/webfonts/Circe-300.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="assets/webfonts/Circe-400.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="assets/webfonts/Circe-900.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="assets/webfonts/fa-light-300.woff2" as="font" type="font/woff2" crossorigin>
+	<link href="assets/style/admin.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Админ-панель</h1>
+
+        <!-- Кнопка "Вернуться на сайт" -->
+        <button id="returnToSiteButton" class="return-to-site-button">Вернуться на сайт</button>
+
+        <!-- Блок для таблицы Users -->
+        <div class="block">
+            <h2>Элементы из таблицы Users</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Login</th>
+                        <th>Password</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                    {%for% user %in% users}
+                    <tr>
+                        <td>{{user.Id}}</td>
+                        <td class="truncate">{{user.Login}}</td>
+                        <td class="truncate">{{user.Password}}</td>
+                    </tr>
+                    {%/for%}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Блок для добавления пользователя -->
+        <div class="block">
+            <h2>Добавить пользователя</h2>
+            <form action="/admin/user/add" method="post" id="add-user-form">
+                <div class="form-group">
+                    <label for="addUserLogin">Login:</label>
+                    <input type="text" id="addUserLogin" name="addUserLogin" required>
+                </div>
+                <div class="form-group">
+                    <label for="addUserPassword">Password:</label>
+                    <input type="password" id="addUserPassword" name="addUserPassword" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Добавить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Блок для удаления пользователя -->
+        <div class="block">
+            <h2>Удалить пользователя по ID</h2>
+            <form action="/admin/user/delete" method="post" id="delete-user-form">
+                <div class="form-group">
+                    <label for="deleteUserId">ID:</label>
+                    <input type="text" id="deleteUserId" name="deleteUserId" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Удалить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Блок для таблицы Movies -->
+        <div class="block">
+            <h2>Элементы из таблицы Movies</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>MovieId</th>
+                        <th>Title</th>
+                        <th>ImageUrl</th>
+                        <th>HtmlPageUrl</th>
+                    </tr>
+                </thead>
+                <tbody id="movieTableBody">
+                    {%for% movie %in% movies}
+                    <tr>
+                        <td>{{movie.MovieId}}</td>
+                        <td>{{movie.Title}}</td>
+                        <td>{{movie.ImageUrl}}</td>
+                        <td>{{movie.HtmlPageUrl}}</td>
+                    </tr>
+                    {%/for%}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Блок для добавления фильма -->
+        <div class="block">
+            <h2>Добавить фильм</h2>
+            <form action="/admin/movie/add" method="post" id="add-movie-form">
+                <div class="form-group">
+                    <label for="addTitle">Title:</label>
+                    <input type="text" id="addTitle" name="addTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="addImageUrl">ImageUrl:</label>
+                    <input type="text" id="addImageUrl" name="addImageUrl" required>
+                </div>
+                <div class="form-group">
+                    <label for="addHtmlPageUrl">HtmlPageUrl:</label>
+                    <input type="text" id="addHtmlPageUrl" name="addHtmlPageUrl">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Добавить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Блок для удаления фильма -->
+        <div class="block">
+            <h2>Удалить фильм по ID</h2>
+            <form action="/admin/movie/delete" method="post" id="delete-movie-form">
+                <div class="form-group">
+                    <label for="deleteMovieId">ID:</label>
+                    <input type="text" id="deleteMovieId" name="deleteMovieId" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Удалить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Блок для таблицы MovieData -->
+        <div class="block">
+            <h2>Элементы из таблицы MovieData</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>MovieId</th>
+                        <th>Title</th>
+                        <th>CoverImageUrl</th>
+                        <th>Description</th>
+                        <th>OriginalTitle</th>
+                        <th>Year</th>
+                        <th>Country</th>
+                        <th>Genre</th>
+                        <th>Quality</th>
+                        <th>Sound</th>
+                        <th>Director</th>
+                        <th>Cast</th>
+                        <th>MoviePlayer</th>
+                    </tr>
+                </thead>
+                <tbody id="movieDataTableBody">
+                    {%for% movieData %in% moviedatas}
+                    <tr>
+                        <td>{{movieData.MovieId}}</td>
+                        <td>{{movieData.Title}}</td>
+                        <td>{{movieData.CoverImageUrl}}</td>
+                        <td class="truncate">{{movieData.Description}}</td>
+                        <td>{{movieData.OriginalTitle}}</td>
+                        <td>{{movieData.Year}}</td>
+                        <td>{{movieData.Country}}</td>
+                        <td class="truncate">{{movieData.Genre}}</td>
+                        <td class="truncate">{{movieData.Quality}}</td>
+                        <td class="truncate">{{movieData.Sound}}</td>
+                        <td class="truncate">{{movieData.Director}}</td>
+                        <td class="truncate">{{movieData.Cast}}</td>
+                        <td class="truncate">{{movieData.MoviePlayer}}</td>
+                    </tr>
+                    {%/for%}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Блок для добавления MovieData -->
+        <div class="block">
+            <h2>Добавить MovieData</h2>
+            <form action="/admin/moviedata/add" method="post" id="add-moviedata-form">
+                <div class="form-group">
+                    <label for="addMovieDataTitle">Title:</label>
+                    <input type="text" id="addMovieDataTitle" name="addMovieDataTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMovieDataCoverImageUrl">CoverImageUrl:</label>
+                    <input type="text" id="addMovieDataCoverImageUrl" name="addMovieDataCoverImageUrl" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMovieDataDescription">Description:</label>
+                    <input type="text" id="addMovieDataDescription" name="addMovieDataDescription" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMovieDataOriginalTitle">OriginalTitle:</label>
+                    <input type="text" id="addMovieDataOriginalTitle" name="addMovieDataOriginalTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMovieDataYear">Year:</label>
+                    <input type="text" id="addMovieDataYear" name="addMovieDataYear" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMovieDataCountry">Country:</label>
+                    <input type="text" id="addMovieDataCountry" name="addMovieDataCountry" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMovieDataGenre">Genre:</label>
+                    <input type="text" id="addMovieDataGenre" name="addMovieDataGenre" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMovieDataQuality">Quality:</label>
+                    <input type="text" id="addMovieDataQuality" name="addMovieDataQuality" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMovieDataSound">Sound:</label>
+                    <input type="text" id="addMovieDataSound" name="addMovieDataSound" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMovieDataDirector">Director:</label>
+                    <input type="text" id="addMovieDataDirector" name="addMovieDataDirector" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMovieDataCast">Cast:</label>
+                    <input type="text" id="addMovieDataCast" name="addMovieDataCast" required>
+                </div>
+                <div class="form-group">
+                    <label for="addMovieDataMoviePlayer">MoviePlayer:</label>
+                    <input type="text" id="addMovieDataMoviePlayer" name="addMovieDataMoviePlayer" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Добавить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Блок для удаления MovieData -->
+        <div class="block">
+            <h2>Удалить MovieData по ID</h2>
+            <form action="/admin/moviedata/delete" method="post" id="delete-moviedata-form">
+                <div class="form-group">
+                    <label for="deleteMovieDataId">ID:</label>
+                    <input type="text" id="deleteMovieDataId" name="deleteMovieDataId" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Удалить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Блок для таблицы Genres -->
+        <div class="block">
+            <h2>Элементы из таблицы Genres</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>GenreName</th>
+                    </tr>
+                </thead>
+                <tbody id="genreTableBody">
+                    {%for% genre %in% genres}
+                    <tr>
+                        <td>{{genre.Id}}</td>
+                        <td>{{genre.GenreName}}</td>
+                    </tr>
+                    {%/for%}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Блок для добавления Genre -->
+        <div class="block">
+            <h2>Добавить Genre</h2>
+            <form action="/admin/genre/add" method="post" id="add-genre-form">
+                <div class="form-group">
+                    <label for="addGenreName">GenreName:</label>
+                    <input type="text" id="addGenreName" name="addGenreName" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Добавить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Блок для удаления Genre -->
+        <div class="block">
+            <h2>Удалить Genre по ID</h2>
+            <form action="/admin/genre/delete" method="post" id="delete-genre-form">
+                <div class="form-group">
+                    <label for="deleteGenreId">ID:</label>
+                    <input type="text" id="deleteGenreId" name="deleteGenreId" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Удалить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Блок для таблицы Countries -->
+        <div class="block">
+            <h2>Элементы из таблицы Countries</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>CountryName</th>
+                    </tr>
+                </thead>
+                <tbody id="countryTableBody">
+                    {%for% country %in% countries}
+                    <tr>
+                        <td>{{country.Id}}</td>
+                        <td>{{country.CountryName}}</td>
+                    </tr>
+                    {%/for%}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Блок для добавления Country -->
+        <div class="block">
+            <h2>Добавить Country</h2>
+            <form action="/admin/country/add" method="post" id="add-country-form">
+                <div class="form-group">
+                    <label for="addCountryName">CountryName:</label>
+                    <input type="text" id="addCountryName" name="addCountryName" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Добавить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Блок для удаления Country -->
+        <div class="block">
+            <h2>Удалить Country по ID</h2>
+            <form action="/admin/country/delete" method="post" id="delete-country-form">
+                <div class="form-group">
+                    <label for="deleteCountryId">ID:</label>
+                    <input type="text" id="deleteCountryId" name="deleteCountryId" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Удалить</button>
+                </div>
+            </form>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="popup-overlay" id="popup-overlay"></div>
+        <div class="popup" id="popup">
+            <span class="popup-close" id="popup-close">&times;</span>
+            <div class="popup-content" id="popup-content"></div>
+        </div>
+
+
+        <div class="block">
+            <h2>Элементы из таблицы Admins</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Login</th>
+                        <th>Password</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody">
+                    {%for% admin %in% admins}
+                    <tr>
+                        <td>{{admin.Id}}</td>
+                        <td class="truncate">{{admin.Login}}</td>
+                        <td class="truncate">{{admin.Password}}</td>
+                    </tr>
+                    {%/for%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="assets/js/admin-popup.js"></script>
+    <script src="assets/js/admin.js"></script>
+
+</body>
+</html>
+
+<!-- DataLife Engine Copyright SoftNews Media Group (https://dle-news.ru) -->
