@@ -14,6 +14,8 @@ HDR.4KFilm — это платформа, предназначенная для 
 
    git clone https://github.com/NikitinRadmir/HDR.4KFILM.git
 
+   Для получения больше проработанного проекта - перемещаться по более ранним созданным веткам.
+
 2. Установите Docker и добавьте SQL Server в вашу среду разработки.
 
 3. В MyHttpServer/config.json и в HttpServerLibrary/Core/Configurations/AppConfig.cs укажите свой ConnectionString.
@@ -69,8 +71,6 @@ HDR.4KFilm — это платформа, предназначенная для 
     [Password] NVARCHAR (50) NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
    );
-
-
 
 5. В MyHttpServer/SQL Tables Вы найдете SQL-запросы заполнения данных для каждой таблице.
 
