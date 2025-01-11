@@ -133,6 +133,33 @@ document.addEventListener('DOMContentLoaded', function () {
         popupOverlayLoginButton.style.display = 'none';
     });
 
+    //var movieElements = document.querySelectorAll('[data-movie-id]');
+
+    //movieElements.forEach(function (element) {
+    //    var movieId = element.getAttribute('data-movie-id');
+    //    var linkElement = element.querySelector('a');
+
+    //    // Проверяем, начинается ли HtmlPageUrl с "/film?id="
+    //    if (!linkElement.href.startsWith('/film?id=')) {
+    //        // Если нет, заменяем ссылку на GET-запрос
+    //        linkElement.href = '/film?id=' + movieId;
+    //    }
+    //});
+
+
+    //var movieElements = document.querySelectorAll('[data-movie-id]');
+
+    //movieElements.forEach(function (element) {
+    //    var movieId = element.getAttribute('data-movie-id');
+    //    var linkElement = element.querySelector('a');
+
+    //    // Проверяем, начинается ли HtmlPageUrl с "/film?id="
+    //    if (!linkElement.href.startsWith('/film?id=')) {
+    //        // Если нет, заменяем ссылку на GET-запрос
+    //        linkElement.href = '/film?id=' + movieId;
+    //    }
+    //});
+
     var movieElements = document.querySelectorAll('[data-movie-id]');
 
     movieElements.forEach(function (element) {
@@ -145,6 +172,10 @@ document.addEventListener('DOMContentLoaded', function () {
             linkElement.href = '/film?id=' + movieId;
         }
     });
+
+
+
+    
 
     mainLink.addEventListener('click', function (event) {
         event.preventDefault();

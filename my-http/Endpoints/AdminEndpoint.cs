@@ -205,18 +205,17 @@ public class AdminEndpoint : EndpointBase
     /// <param name="addHtmlPageUrl">URL HTML-страницы фильма.</param>
     /// <returns>Результат HTTP-ответа.</returns>
     [Post("admin/movie/add")]
-    public IHttpResponseResult AddMovie(string addTitle, string addImageUrl, string addHtmlPageUrl)
+    public IHttpResponseResult AddMovie(string addTitle, string addImageUrl)
     {
         try
         {
-            Console.WriteLine($"Adding movie with title: {addTitle}, image URL: {addImageUrl}, HTML page URL: {addHtmlPageUrl}");
+            Console.WriteLine($"Adding movie with title: {addTitle}, image URL: {addImageUrl}");
             var movie_context = new ORMContext<Movie>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
 
             Movie newMovie = new Movie
             {
                 Title = addTitle,
-                ImageUrl = addImageUrl,
-                HtmlPageUrl = addHtmlPageUrl,
+                ImageUrl = addImageUrl
             };
             Console.WriteLine("Attempting to add movie to the database...");
             movie_context.CreateMovie(newMovie);
@@ -276,13 +275,14 @@ public class AdminEndpoint : EndpointBase
     /// <param name="addMovieDataMoviePlayer">Плеер фильма.</param>
     /// <returns>Результат HTTP-ответа.</returns>
     [Post("admin/moviedata/add")]
-    public IHttpResponseResult AddMovieData(string addMovieDataTitle, string addMovieDataCoverImageUrl, string addMovieDataDescription, string addMovieDataOriginalTitle, int addMovieDataYear, string addMovieDataCountry, string addMovieDataGenre, string addMovieDataQuality, string addMovieDataSound, string addMovieDataDirector, string addMovieDataCast, string addMovieDataMoviePlayer)
+    public IHttpResponseResult AddMovieData(int addMovieDataId, string addMovieDataTitle, string addMovieDataCoverImageUrl, string addMovieDataDescription, string addMovieDataOriginalTitle, int addMovieDataYear, string addMovieDataCountry, string addMovieDataGenre, string addMovieDataQuality, string addMovieDataSound, string addMovieDataDirector, string addMovieDataCast, string addMovieDataMoviePlayer)
     {
         try
         {
             var moviedata_context = new ORMContext<MovieData>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
             MovieData newMovieData = new MovieData
             {
+                MovieId = addMovieDataId, // Убедитесь, что значение для MovieId передается
                 Title = addMovieDataTitle,
                 CoverImageUrl = addMovieDataCoverImageUrl,
                 Description = addMovieDataDescription,
@@ -307,6 +307,7 @@ public class AdminEndpoint : EndpointBase
             return Json(new { error = ex.Message });
         }
     }
+
 
     /// <summary>
     /// Обрабатывает POST-запрос для удаления данных фильма по идентификатору.

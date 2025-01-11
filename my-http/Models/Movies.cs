@@ -28,8 +28,4 @@ public class Movie
     /// </summary>
     public string ImageUrl { get; set; }
 
-    /// <summary>
-    /// Получает или задает URL HTML-страницы фильма.
-    /// </summary>
-    public string HtmlPageUrl { get; set; }
 }

@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemlateEngine", "TemlateEng
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyORMLibrary", "MyORMLibrary\MyORMLibrary.csproj", "{0B03BA0A-BB80-481F-81C7-3020869E1A89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemplateEngine.UnitTests", "TemplateEngine.UnitTests\TemplateEngine.UnitTests.csproj", "{EF974B86-F2FF-4DD7-BAF3-7ACA9FFF4655}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0B03BA0A-BB80-481F-81C7-3020869E1A89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B03BA0A-BB80-481F-81C7-3020869E1A89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B03BA0A-BB80-481F-81C7-3020869E1A89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF974B86-F2FF-4DD7-BAF3-7ACA9FFF4655}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF974B86-F2FF-4DD7-BAF3-7ACA9FFF4655}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF974B86-F2FF-4DD7-BAF3-7ACA9FFF4655}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF974B86-F2FF-4DD7-BAF3-7ACA9FFF4655}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

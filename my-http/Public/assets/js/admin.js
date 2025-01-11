@@ -84,14 +84,12 @@ document.addEventListener('DOMContentLoaded', function () {
             <td>${result.MovieId}</td>
             <td>${result.Title}</td>
             <td>${result.ImageUrl}</td>
-            <td>${result.HtmlPageUrl}</td>
         `;
             // Находим таблицу и добавляем новую строку
             const table = document.getElementById('movieTableBody');
             table.appendChild(newRow);
             document.getElementById('addTitle').value = '';
             document.getElementById('addImageUrl').value = '';
-            document.getElementById('addHtmlPageUrl').value = '';
 
             alert('Вы успешно добавили фильм!')
 
@@ -109,6 +107,15 @@ document.addEventListener('DOMContentLoaded', function () {
         // Формируем данные из формы
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
+
+        const addMovieDataId = form.querySelector('#addMovieDataId').value;
+        const addMovieDataYear = form.querySelector('#addMovieDataYear').value;
+
+        // Проверка, что MovieId и Year являются числами и положительными
+        if (isNaN(addMovieDataId) || isNaN(addMovieDataYear) || parseInt(addMovieDataId) <= 0 || parseInt(addMovieDataYear) <= 0) {
+            alert('MovieId и Year должны быть положительными числами.');
+            return;
+        }
 
         try {
             // Выполняем AJAX-запрос
@@ -133,23 +140,24 @@ document.addEventListener('DOMContentLoaded', function () {
             // Создаем новую строку таблицы
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
-                <td>${result.MovieId}</td>
-                <td>${result.Title}</td>
-                <td>${result.CoverImageUrl}</td>
-                <td>${result.Description}</td>
-                <td>${result.OriginalTitle}</td>
-                <td>${result.Year}</td>
-                <td>${result.Country}</td>
-                <td>${result.Genre}</td>
-                <td>${result.Quality}</td>
-                <td>${result.Sound}</td>
-                <td>${result.Director}</td>
-                <td>${result.Cast}</td>
-                <td>${result.MoviePlayer}</td>
-            `;
+            <td>${result.MovieId}</td>
+            <td>${result.Title}</td>
+            <td>${result.CoverImageUrl}</td>
+            <td>${result.Description}</td>
+            <td>${result.OriginalTitle}</td>
+            <td>${result.Year}</td>
+            <td>${result.Country}</td>
+            <td>${result.Genre}</td>
+            <td>${result.Quality}</td>
+            <td>${result.Sound}</td>
+            <td>${result.Director}</td>
+            <td>${result.Cast}</td>
+            <td>${result.MoviePlayer}</td>
+        `;
             // Находим таблицу и добавляем новую строку
             const table = document.getElementById('movieDataTableBody');
             table.appendChild(newRow);
+            document.getElementById('addMovieDataId').value = '';
             document.getElementById('addMovieDataTitle').value = '';
             document.getElementById('addMovieDataCoverImageUrl').value = '';
             document.getElementById('addMovieDataDescription').value = '';
@@ -169,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Ошибка при добавлении MovieData: ' + error.message);
         }
     });
+
 
     // Обработчик для формы добавления Genre
     document.getElementById('add-genre-form').addEventListener('submit', async function (event) {
@@ -363,7 +372,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>${movie.MovieId}</td>
                     <td>${movie.Title}</td>
                     <td>${movie.ImageUrl}</td>
-                    <td>${movie.HtmlPageUrl}</td>
                 `;
                 tableBody.appendChild(newRow);
             });

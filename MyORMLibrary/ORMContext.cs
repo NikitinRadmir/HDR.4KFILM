@@ -3,7 +3,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Reflection;
-
+using HttpServerLibrary.Core;
 namespace MyORMLibrary;
 
 /// <summary>
@@ -325,8 +325,7 @@ public class ORMContext<T> where T : class, new()
     /// <param name="entity">Сущность данных фильма для создания.</param>
     public void CreateMovieData(T entity)
     {
-        var properties = entity.GetType().GetProperties()
-            .Where(p => p.Name != "MovieId" && p.Name != "Id"); // Исключаем MovieId и Id
+        var properties = entity.GetType().GetProperties();
         var columns = string.Join(", ", properties.Select(p => p.Name));
         var values = string.Join(", ", properties.Select(p => '@' + p.Name));
         string query = $"INSERT INTO {typeof(T).Name}s ({columns}) VALUES ({values})";
@@ -787,4 +786,45 @@ public class ORMContext<T> where T : class, new()
 
         return obj;
     }
+    public int? ReadMovieIdByTitle(string title)
+    {
+        string query = "SELECT MovieId FROM Movies WHERE Title = @Title";
+        using (var command = _dbConnection.CreateCommand())
+        {
+            command.CommandText = query;
+            var parameter = command.CreateParameter();
+            parameter.ParameterName = "@Title";
+            parameter.Value = title;
+            command.Parameters.Add(parameter);
+
+            _dbConnection.Open();
+            using (var reader = command.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    return reader.GetInt32(reader.GetOrdinal("MovieId"));
+                }
+            }
+        }
+        return null;
+    }
+    public string GetQueryParameter(HttpRequestContext context, string parameterName)
+    {
+        var queryString = context.Request.QueryString;
+        if (queryString == null)
+        {
+            Console.WriteLine("Query string is null.");
+            return null;
+        }
+
+        var parameterValue = queryString[parameterName];
+        if (string.IsNullOrEmpty(parameterValue))
+        {
+            Console.WriteLine($"Parameter {parameterName} is missing or empty.");
+            return null;
+        }
+
+        return parameterValue;
+    }
+
 }

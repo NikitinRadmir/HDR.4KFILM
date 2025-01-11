@@ -11,7 +11,7 @@ public interface IHtmlTemplateEngine
     /// <param name="template">Шаблон HTML.</param>
     /// <param name="data">Строковые данные для рендеринга.</param>
     /// <returns>Отрендеренный HTML.</returns>
-    string Render(string template, string data);
+    string Render(string template, string str, string data);
 
     /// <summary>
     /// Рендерит шаблон с использованием объекта данных.

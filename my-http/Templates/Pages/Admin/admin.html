@@ -83,7 +83,7 @@
                         <th>MovieId</th>
                         <th>Title</th>
                         <th>ImageUrl</th>
-                        <th>HtmlPageUrl</th>
+
                     </tr>
                 </thead>
                 <tbody id="movieTableBody">
@@ -92,7 +92,6 @@
                         <td>{{movie.MovieId}}</td>
                         <td>{{movie.Title}}</td>
                         <td>{{movie.ImageUrl}}</td>
-                        <td>{{movie.HtmlPageUrl}}</td>
                     </tr>
                     {%/for%}
                 </tbody>
@@ -110,10 +109,6 @@
                 <div class="form-group">
                     <label for="addImageUrl">ImageUrl:</label>
                     <input type="text" id="addImageUrl" name="addImageUrl" required>
-                </div>
-                <div class="form-group">
-                    <label for="addHtmlPageUrl">HtmlPageUrl:</label>
-                    <input type="text" id="addHtmlPageUrl" name="addHtmlPageUrl">
                 </div>
                 <div class="form-group">
                     <button type="submit">Добавить</button>
@@ -182,6 +177,10 @@
         <div class="block">
             <h2>Добавить MovieData</h2>
             <form action="/admin/moviedata/add" method="post" id="add-moviedata-form">
+                <div class="form-group">
+                    <label for="addMovieDataId">Id:</label>
+                    <input type="text" id="addMovieDataId" name="addMovieDataId" required>
+                </div>
                 <div class="form-group">
                     <label for="addMovieDataTitle">Title:</label>
                     <input type="text" id="addMovieDataTitle" name="addMovieDataTitle" required>
