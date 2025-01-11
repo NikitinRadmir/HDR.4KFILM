@@ -98,4 +98,4 @@ HDR.4KFilm — это платформа, предназначенная для 
 
 ## Контакты
 
-1. Nikitin Radmir email: RANikitin@stud.kpfu.ru
+1. Никитин Радмир 11-308 email: RANikitin@stud.kpfu.ru
