@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const adminPanelButton = document.getElementById('adminPanelButton');
     const switchAccountButton = document.getElementById('switchAccountButton');
     const stayOnSiteButton = document.getElementById('stayOnSiteButton');
+    const mainLinkNav = document.getElementById('mainLinkNav');
+
+    const loginButtonEnter = document.querySelector('.btn.enter-btn');
+    const popupOverlayLoginButtonEnter = document.getElementById('popupOverlayEnterBtn');
+    const adminPanelButtonEnter = document.getElementById('adminPanelBtn');
+    const switchAccountButtonEnter = document.getElementById('switchAccountBtn');
+    const stayOnSiteButtonEnter = document.getElementById('stayOnSiteBtn');
 
     if (!btnMenu) {
         console.error('Element with class "btn-menu" not found');
@@ -66,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateLoginButton(username) {
         if (username) {
             loginButton.textContent = username;
+            loginButtonEnter.textContent = username;
         }
     }
 
@@ -101,7 +109,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Проверка авторизации при загрузке страницы
     checkAuthorization();
 
-    loginButton.addEventListener('click', function () {
+    // Обработчик для кнопок входа
+    function handleLoginButtonClick(event, popupOverlay) {
         console.log('Login button clicked');
         // Проверка авторизации
         fetch('/auth/check')
@@ -109,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 if (data.isAuthorized) {
                     // Показать всплывающее окно
-                    popupOverlayLoginButton.style.display = 'block';
+                    popupOverlay.style.display = 'block';
                 } else {
                     // Перенаправляем на страницу auth/login
                     window.location.href = 'auth/login';
@@ -118,6 +127,14 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => {
                 console.error('Error checking authorization:', error);
             });
+    }
+
+    loginButton.addEventListener('click', function (event) {
+        handleLoginButtonClick(event, popupOverlayLoginButton);
+    });
+
+    loginButtonEnter.addEventListener('click', function (event) {
+        handleLoginButtonClick(event, popupOverlayLoginButtonEnter);
     });
 
     // Обработчики для кнопок всплывающего окна
@@ -133,33 +150,6 @@ document.addEventListener('DOMContentLoaded', function () {
         popupOverlayLoginButton.style.display = 'none';
     });
 
-    //var movieElements = document.querySelectorAll('[data-movie-id]');
-
-    //movieElements.forEach(function (element) {
-    //    var movieId = element.getAttribute('data-movie-id');
-    //    var linkElement = element.querySelector('a');
-
-    //    // Проверяем, начинается ли HtmlPageUrl с "/film?id="
-    //    if (!linkElement.href.startsWith('/film?id=')) {
-    //        // Если нет, заменяем ссылку на GET-запрос
-    //        linkElement.href = '/film?id=' + movieId;
-    //    }
-    //});
-
-
-    //var movieElements = document.querySelectorAll('[data-movie-id]');
-
-    //movieElements.forEach(function (element) {
-    //    var movieId = element.getAttribute('data-movie-id');
-    //    var linkElement = element.querySelector('a');
-
-    //    // Проверяем, начинается ли HtmlPageUrl с "/film?id="
-    //    if (!linkElement.href.startsWith('/film?id=')) {
-    //        // Если нет, заменяем ссылку на GET-запрос
-    //        linkElement.href = '/film?id=' + movieId;
-    //    }
-    //});
-
     var movieElements = document.querySelectorAll('[data-movie-id]');
 
     movieElements.forEach(function (element) {
@@ -173,21 +163,25 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
-
-    
-
     mainLink.addEventListener('click', function (event) {
         event.preventDefault();
-        fetch('/main')
-            .then(response => response.text())
-            .then(html => {
-                document.open();
-                document.write(html);
-                document.close();
-            })
-            .catch(error => {
-                console.error('Error fetching main page:', error);
-            });
+        window.location.href = '/main';
+    });
+    mainLinkNav.addEventListener('click', function (event) {
+        event.preventDefault();
+        window.location.href = '/main';
+    });
+
+    // Обработчики для кнопок всплывающего окна
+    adminPanelButtonEnter.addEventListener('click', function () {
+        window.location.href = 'admlogin';
+    });
+
+    switchAccountButtonEnter.addEventListener('click', function () {
+        window.location.href = 'auth/login';
+    });
+
+    stayOnSiteButtonEnter.addEventListener('click', function () {
+        popupOverlayLoginButtonEnter.style.display = 'none';
     });
 });

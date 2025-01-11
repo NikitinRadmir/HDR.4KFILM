@@ -34,22 +34,31 @@ header#header{max-width: none !important;}
 			<div class="btn-menu"><span class="fa fa-bars"></span></div>
 			<div class="menu-overlay" id="menu-overlay">
 				<div class="menu-content">
-					<div class="menu-item active">ГЛАВНАЯ</div>
+					<div class="menu-item active" id="mainLink">ГЛАВНАЯ</div>
 					<div class="menu-item">НОВИНКИ</div>
 					<div class="menu-item">ЖАНРЫ</div>
 					<div class="menu-item">ФИЛЬМЫ</div>
 					<div class="menu-item">МУЛЬТФИЛЬМЫ</div>
 					<div class="menu-item">СЕРИАЛЫ</div>
+					<div class="btn enter-btn" id="enterBtn">Войти</div>
+
+					<!-- Всплывающее окно -->
+					<div id="popupOverlayEnterBtn" class="popup-overlay-enter-btn" style="display: none;">
+						<div class="popup-content-enter-btn">
+							<button id="adminPanelBtn">Админ-Панель</button>
+							<button id="switchAccountBtn">Переавторизация</button>
+							<button id="stayOnSiteBtn">Остаться на сайте</button>
+						</div>
+					</div>
 				</div>
 			</div>
 			<ul class="shtur clearfix" id="nav-menu">
-				<li><a href="#" class="active" id="mainLink">Главная</a></li>
+				<li><a href="#" class="active" id="mainLinkNav">Главная</a></li>
 				<li><a href="#">новинки</a></li>
 				<li><a href="#">жанры</a></li>
 				<li><a href="#">фильмы</a></li>
 				<li><a href="#">мультфильмы</a></li>
 				<li><a href="#">сериалы</a></li>
-				<!--<li><a href="/treiler-4k/">трейлеры</a></li>-->
 			</ul>
 			
 			<div class="shap-right" id="hd-right">
