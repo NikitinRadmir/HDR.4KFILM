@@ -12,7 +12,7 @@ HDR.4KFilm — это платформа, предназначенная для 
 ## Установка
 1. Клонируйте репозиторий:
 
-   git clone https://github.com/NikitinRadmin/HDR.4KFILM.git
+   git clone https://github.com/NikitinRadmir/HDR.4KFILM.git
 
 2. Установите Docker и добавьте SQL Server в вашу среду разработки.
 
@@ -28,15 +28,14 @@ HDR.4KFilm — это платформа, предназначенная для 
    );
 
    CREATE TABLE [dbo].[Movies] (
-    [MovieId]     INT            IDENTITY (1, 1) NOT NULL,
-    [Title]       NVARCHAR (255) NULL,
-    [ImageUrl]    NVARCHAR (255) NULL,
-    [HtmlPageUrl] NVARCHAR (255) DEFAULT ('#') NULL,
+    [MovieId]  INT            IDENTITY (1, 1) NOT NULL,
+    [Title]    NVARCHAR (255) NULL,
+    [ImageUrl] NVARCHAR (255) NULL,
     PRIMARY KEY CLUSTERED ([MovieId] ASC)
    );
 
    CREATE TABLE [dbo].[MovieDatas] (
-    [MovieId]       INT            IDENTITY (1, 1) NOT NULL,
+    [MovieId]       INT            NOT NULL,
     [Title]         NVARCHAR (MAX) NULL,
     [CoverImageUrl] NVARCHAR (MAX) NULL,
     [Description]   NVARCHAR (MAX) NULL,
@@ -53,9 +52,9 @@ HDR.4KFilm — это платформа, предназначенная для 
    );
 
    CREATE TABLE [dbo].[Genres] (
-    [Id]        INT            IDENTITY (1, 1) NOT NULL,
-    [GenreName] NVARCHAR (255) NOT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
+       [Id]        INT            IDENTITY (1, 1) NOT NULL,
+       [GenreName] NVARCHAR (255) NOT NULL,
+       PRIMARY KEY CLUSTERED ([Id] ASC)
    );
 
    CREATE TABLE [dbo].[Countrys] (
@@ -64,12 +63,14 @@ HDR.4KFilm — это платформа, предназначенная для 
     PRIMARY KEY CLUSTERED ([Id] ASC)
    );
 
-   CREATE TABLE [dbo].[Admins] (
+  CREATE TABLE [dbo].[Admins] (
     [Id]       INT           IDENTITY (1, 1) NOT NULL,
     [Login]    NVARCHAR (50) NULL,
     [Password] NVARCHAR (50) NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
    );
+
+
 
 5. В MyHttpServer/SQL Tables Вы найдете SQL-запросы заполнения данных для каждой таблице.
 
