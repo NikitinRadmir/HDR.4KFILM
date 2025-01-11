@@ -82,7 +82,7 @@
       <None Update="Templates\Pages\Movies\assets\uploads\posts\2024-12\1733130635-dorogoy-santa.webp">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Templates\Pages\Movies\dear-santa.html">
+      <None Update="Templates\Pages\Movies\movie.html">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Update="Templates\Pages\Main\index.html">

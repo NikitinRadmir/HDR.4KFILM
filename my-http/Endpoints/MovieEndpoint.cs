@@ -31,7 +31,7 @@ public class MovieEndpoint : EndpointBase
     {
         Console.WriteLine("----- Movie page request -----");
 
-        var localPath = "Movies/dear-santa.html";
+        var localPath = "Movies/movie.html";
         var responseText = ResponseHelper.GetResponseText(localPath);
         Console.WriteLine($"Loaded response text from: {localPath}");
 
