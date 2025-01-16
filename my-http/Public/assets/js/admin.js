@@ -547,4 +547,261 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Ошибка при удалении Country: ' + error.message);
         }
     });
+
+    
+
+    // Обработчик для формы обновления Country
+    document.getElementById('update-user-form').addEventListener('submit', async function (event) {
+        event.preventDefault(); // Предотвращаем стандартную отправку формы
+
+        const form = event.target;
+
+        // Формируем данные из формы
+        const formData = new FormData(form);
+        const data = new URLSearchParams(formData).toString();
+
+        try {
+            // Выполняем AJAX-запрос
+            const response = await fetch(form.action, {
+                method: form.method,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: data,
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error('Ошибка при отправке данных: ' + errorText);
+            }
+
+            const result = await response.json();
+
+            if (result.error) {
+                alert('Ошибка при обновлении User: ' + result.error);
+                return;
+            }
+
+            // Обновляем строку таблицы
+            const table = document.getElementById('userTableBody');
+            const row = table.querySelector(`tr[data-id="${result.Id}"]`);
+            if (row) {
+                row.innerHTML = `
+                <td>${result.Id}</td>
+                <td>${result.Login}</td>
+                <td>${result.Password}</td>
+            `;
+            }
+                    
+
+            alert('Вы успешно обновили пользователя!')
+
+        } catch (error) {
+            alert('Ошибка при обновлении пользователя: ' + error.message);
+        }
+    });
+
+    document.getElementById('update-movie-form').addEventListener('submit', async function (event) {
+        event.preventDefault(); // Предотвращаем стандартную отправку формы
+
+        const form = event.target;
+
+        // Формируем данные из формы
+        const formData = new FormData(form);
+        const data = new URLSearchParams(formData).toString();
+
+        try {
+            // Выполняем AJAX-запрос
+            const response = await fetch(form.action, {
+                method: form.method,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: data,
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error('Ошибка при отправке данных: ' + errorText);
+            }
+
+            const result = await response.json();
+
+            if (result.error) {
+                alert('Ошибка при обновлении Movie: ' + result.error);
+                return;
+            }
+
+            // Обновляем строку таблицы
+            const table = document.getElementById('movieTableBody');
+            const row = table.querySelector(`tr[data-id="${result.MovieId}"]`);
+            if (row) {
+                row.innerHTML = `
+                <td>${result.MovieId}</td>
+                <td>${result.Title}</td>
+                <td>${result.ImageUrl}</td>
+            `;
+            }
+
+            alert('Вы успешно обновили фильм!')
+
+        } catch (error) {
+            alert('Ошибка при обновлении фильма: ' + error.message);
+        }
+    });
+
+    document.getElementById('update-moviedata-form').addEventListener('submit', async function (event) {
+        event.preventDefault(); // Предотвращаем стандартную отправку формы
+
+        const form = event.target;
+
+        // Формируем данные из формы
+        const formData = new FormData(form);
+        const data = new URLSearchParams(formData).toString();
+
+        try {
+            // Выполняем AJAX-запрос
+            const response = await fetch(form.action, {
+                method: form.method,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: data,
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error('Ошибка при отправке данных: ' + errorText);
+            }
+
+            const result = await response.json();
+
+            if (result.error) {
+                alert('Ошибка при обновлении MovieData: ' + result.error);
+                return;
+            }
+
+            // Обновляем строку таблицы
+            const table = document.getElementById('movieDataTableBody');
+            const row = table.querySelector(`tr[data-id="${result.MovieId}"]`);
+            if (row) {
+                row.innerHTML = `
+                <td>${result.MovieId}</td>
+                <td>${result.Title}</td>
+                <td>${result.CoverImageUrl}</td>
+                <td>${result.Description}</td>
+                <td>${result.OriginalTitle}</td>
+                <td>${result.Year}</td>
+                <td>${result.Country}</td>
+                <td>${result.Genre}</td>
+                <td>${result.Quality}</td>
+                <td>${result.Sound}</td>
+                <td>${result.Director}</td>
+                <td>${result.Cast}</td>
+                <td>${result.MoviePlayer}</td>
+            `;
+            }
+
+            alert('Вы успешно обновили MovieData!')
+
+        } catch (error) {
+            alert('Ошибка при обновлении MovieData: ' + error.message);
+        }
+    });
+
+    document.getElementById('update-genre-form').addEventListener('submit', async function (event) {
+        event.preventDefault(); // Предотвращаем стандартную отправку формы
+
+        const form = event.target;
+
+        // Формируем данные из формы
+        const formData = new FormData(form);
+        const data = new URLSearchParams(formData).toString();
+
+        try {
+            // Выполняем AJAX-запрос
+            const response = await fetch(form.action, {
+                method: form.method,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: data,
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error('Ошибка при отправке данных: ' + errorText);
+            }
+
+            const result = await response.json();
+
+            if (result.error) {
+                alert('Ошибка при обновлении Genre: ' + result.error);
+                return;
+            }
+
+            // Обновляем строку таблицы
+            const table = document.getElementById('genreTableBody');
+            const row = table.querySelector(`tr[data-id="${result.Id}"]`);
+            if (row) {
+                row.innerHTML = `
+                <td>${result.Id}</td>
+                <td>${result.GenreName}</td>
+            `;
+            }
+
+            alert('Вы успешно обновили жанр!')
+
+        } catch (error) {
+            alert('Ошибка при обновлении жанра: ' + error.message);
+        }
+    });
+
+    document.getElementById('update-country-form').addEventListener('submit', async function (event) {
+        event.preventDefault(); // Предотвращаем стандартную отправку формы
+
+        const form = event.target;
+
+        // Формируем данные из формы
+        const formData = new FormData(form);
+        const data = new URLSearchParams(formData).toString();
+
+        try {
+            // Выполняем AJAX-запрос
+            const response = await fetch(form.action, {
+                method: form.method,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: data,
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error('Ошибка при отправке данных: ' + errorText);
+            }
+
+            const result = await response.json();
+
+            if (result.error) {
+                alert('Ошибка при обновлении Country: ' + result.error);
+                return;
+            }
+
+            // Обновляем строку таблицы
+            const table = document.getElementById('countryTableBody');
+            const row = table.querySelector(`tr[data-id="${result.Id}"]`);
+            if (row) {
+                row.innerHTML = `
+            <td>${result.Id}</td>
+            <td>${result.CountryName}</td>
+        `;
+            }
+
+            alert('Вы успешно обновили страну!')
+
+        } catch (error) {
+            alert('Ошибка при обновлении страны: ' + error.message);
+        }
+    });
 });

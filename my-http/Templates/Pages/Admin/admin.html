@@ -60,6 +60,27 @@
             </form>
         </div>
 
+        <div class="block">
+            <h2>Обновить пользователя</h2>
+            <form action="/admin/user/update" method="post" id="update-user-form">
+                <div class="form-group">
+                    <label for="updateUserId">ID:</label>
+                    <input type="text" id="updateUserId" name="updateUserId" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateUserLogin">Login:</label>
+                    <input type="text" id="updateUserLogin" name="updateUserLogin" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateUserPassword">Password:</label>
+                    <input type="password" id="updateUserPassword" name="updateUserPassword" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Обновить</button>
+                </div>
+            </form>
+        </div>
+
         <!-- Блок для удаления пользователя -->
         <div class="block">
             <h2>Удалить пользователя по ID</h2>
@@ -112,6 +133,28 @@
                 </div>
                 <div class="form-group">
                     <button type="submit">Добавить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Блок для обновления фильма -->
+        <div class="block">
+            <h2>Обновить фильм</h2>
+            <form action="/admin/movie/update" method="post" id="update-movie-form">
+                <div class="form-group">
+                    <label for="updateMovieId">ID:</label>
+                    <input type="text" id="updateMovieId" name="updateMovieId" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateTitle">Title:</label>
+                    <input type="text" id="updateTitle" name="updateTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateImageUrl">ImageUrl:</label>
+                    <input type="text" id="updateImageUrl" name="updateImageUrl" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Обновить</button>
                 </div>
             </form>
         </div>
@@ -235,6 +278,68 @@
             </form>
         </div>
 
+        <!-- Блок для обновления данных фильма -->
+        <div class="block">
+            <h2>Обновить MovieData</h2>
+            <form action="/admin/moviedata/update" method="post" id="update-moviedata-form">
+                <div class="form-group">
+                    <label for="updateMovieDataId">ID:</label>
+                    <input type="text" id="updateMovieDataId" name="updateMovieDataId" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMovieDataTitle">Title:</label>
+                    <input type="text" id="updateMovieDataTitle" name="updateMovieDataTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMovieDataCoverImageUrl">CoverImageUrl:</label>
+                    <input type="text" id="updateMovieDataCoverImageUrl" name="updateMovieDataCoverImageUrl" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMovieDataDescription">Description:</label>
+                    <input type="text" id="updateMovieDataDescription" name="updateMovieDataDescription" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMovieDataOriginalTitle">OriginalTitle:</label>
+                    <input type="text" id="updateMovieDataOriginalTitle" name="updateMovieDataOriginalTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMovieDataYear">Year:</label>
+                    <input type="text" id="updateMovieDataYear" name="updateMovieDataYear" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMovieDataCountry">Country:</label>
+                    <input type="text" id="updateMovieDataCountry" name="updateMovieDataCountry" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMovieDataGenre">Genre:</label>
+                    <input type="text" id="updateMovieDataGenre" name="updateMovieDataGenre" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMovieDataQuality">Quality:</label>
+                    <input type="text" id="updateMovieDataQuality" name="updateMovieDataQuality" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMovieDataSound">Sound:</label>
+                    <input type="text" id="updateMovieDataSound" name="updateMovieDataSound" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMovieDataDirector">Director:</label>
+                    <input type="text" id="updateMovieDataDirector" name="updateMovieDataDirector" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMovieDataCast">Cast:</label>
+                    <input type="text" id="updateMovieDataCast" name="updateMovieDataCast" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateMovieDataMoviePlayer">MoviePlayer:</label>
+                    <input type="text" id="updateMovieDataMoviePlayer" name="updateMovieDataMoviePlayer" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Обновить</button>
+                </div>
+            </form>
+        </div>
+
         <!-- Блок для удаления MovieData -->
         <div class="block">
             <h2>Удалить MovieData по ID</h2>
@@ -284,6 +389,24 @@
             </form>
         </div>
 
+        <!-- Блок для обновления жанра -->
+        <div class="block">
+            <h2>Обновить Genre</h2>
+            <form action="/admin/genre/update" method="post" id="update-genre-form">
+                <div class="form-group">
+                    <label for="updateGenreId">ID:</label>
+                    <input type="text" id="updateGenreId" name="updateGenreId" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateGenreName">GenreName:</label>
+                    <input type="text" id="updateGenreName" name="updateGenreName" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Обновить</button>
+                </div>
+            </form>
+        </div>
+
         <!-- Блок для удаления Genre -->
         <div class="block">
             <h2>Удалить Genre по ID</h2>
@@ -329,6 +452,24 @@
                 </div>
                 <div class="form-group">
                     <button type="submit">Добавить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Блок для обновления страны -->
+        <div class="block">
+            <h2>Обновить страну</h2>
+            <form action="/admin/country/update" method="post" id="update-country-form">
+                <div class="form-group">
+                    <label for="updateCountryId">ID:</label>
+                    <input type="text" id="updateCountryId" name="updateCountryId" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateCountryName">CountryName:</label>
+                    <input type="text" id="updateCountryName" name="updateCountryName" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Обновить</button>
                 </div>
             </form>
         </div>

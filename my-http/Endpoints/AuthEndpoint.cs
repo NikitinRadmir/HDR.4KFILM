@@ -7,6 +7,7 @@ using HttpServerLibrary.Core.HttpResponse;
 using HttpServerLibrary.Models;
 using MyHttpServer.Helpers;
 using MyHttpServer.Models;
+using MyHttpServer.Repositories;
 using MyORMLibrary;
 using TemlateEngine;
 
@@ -46,12 +47,20 @@ public class AuthEndpoint : EndpointBase
         var localPath = "Auth/login.html";
         var responseText = ResponseHelper.GetResponseText(localPath);
         var templateEngine = new HtmlTemplateEngine();
-        var context = new ORMContext<User>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
 
         Console.WriteLine("----- User on login-page -----");
         Console.WriteLine($"Login attempt with login: {login} and password: {password}");
 
-        var user = context.FirstOrDefault(x => x.Login == login && x.Password == password);
+
+        // Создание экземпляра UserRepository
+        var userRepository = new UserRepository();
+
+        // Получение всех пользователей
+        var users = userRepository.GetUsers();
+
+        // Поиск пользователя по логину и паролю
+        var user = users.FirstOrDefault(x => x.Login == login && x.Password == password);
+
         if (user == null)
         {
             Console.WriteLine("User not found in the database.");

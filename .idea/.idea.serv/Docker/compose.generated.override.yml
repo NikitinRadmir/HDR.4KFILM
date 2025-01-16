@@ -1,0 +1,21 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  myhttpserver:
+    build:
+      context: "C:\\Users\\SHIDO\\Music\\sem admin panel\\zzzzzzzzzzzz\\sem04.01.25"
+      dockerfile: "my-http/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/MyHttpServer.dll"
+    environment:
+      DOTNET_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "myhttpserver:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\SHIDO\\Music\\sem admin panel\\zzzzzzzzzzzz\\sem04.01.25\\my-http:/app:rw"
+    - "C:\\Users\\SHIDO\\Music\\sem admin panel\\zzzzzzzzzzzz\\sem04.01.25:/src:rw"
+    - "C:\\Users\\SHIDO\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"

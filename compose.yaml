@@ -1,0 +1,27 @@
+﻿services:
+  myhttpserver:
+    container_name: webserver
+    image: myhttpserver:dev
+    build:
+      context: .
+      dockerfile: my-http/Dockerfile
+    ports:
+      - "8888:8888"
+    expose:
+      - "8888"
+    depends_on:
+      - db
+    command: ["dotnet", "WebServer.dll"]
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: database
+    restart: always
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: P@ssw0rd
+    ports:
+      - "1433:1433"
+    expose:
+      - 1433
+    hostname: sql1

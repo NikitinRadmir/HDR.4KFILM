@@ -8,6 +8,7 @@ using HttpServerLibrary.Core.HttpResponse;
 using HttpServerLibrary.Models;
 using MyHttpServer.Helpers;
 using MyHttpServer.Models;
+using MyHttpServer.Repositories;
 using MyORMLibrary;
 using TemlateEngine;
 
@@ -47,13 +48,14 @@ public class AdminEndpoint : EndpointBase
         var localPath = "Auth/admin-login.html";
         var responseText = ResponseHelper.GetResponseText(localPath);
         var templateEngine = new HtmlTemplateEngine();
-        var admin_context = new ORMContext<Admin>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
+        var adminRepository = new AdminRepository();
+        var admins = adminRepository.GetAdmins();
 
         // Логирование входных данных
         Console.WriteLine("----- User on admin-login-page -----");
         Console.WriteLine($"Login attempt with login: {login} and password: {password}");
 
-        var admin = admin_context.FirstOrDefault(x => x.Login == login && x.Password == password);
+        var admin = admins.FirstOrDefault(x => x.Login == login && x.Password == password);
 
         // Логирование результата запроса
         if (admin == null)
@@ -87,23 +89,24 @@ public class AdminEndpoint : EndpointBase
 
         Console.WriteLine("----- admin on admin-page -----");
 
-        var movie_context = new ORMContext<Movie>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
-        var movies = movie_context.ReadAll("Movies");
+        var movieRepository = new MovieRepository();
+        var movieDataRepository = new MovieDataRepository();
+        var userRepository = new UserRepository();
+        var adminRepository = new AdminRepository();
+        var genreRepository = new GenreRepository();
+        var countryRepository = new CountryRepository();
 
-        var user_context = new ORMContext<User>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
-        var users = user_context.GetAll();
+        var movies = movieRepository.GetMovies();
 
-        var admin_context = new ORMContext<Admin>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
-        var admins = admin_context.GetAll();
+        var users = userRepository.GetUsers();
 
-        var moviedata_context = new ORMContext<MovieData>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
-        var moviedatas = moviedata_context.ReadAll("MovieDatas");
+        var admins = adminRepository.GetAdmins();
 
-        var genre_context = new ORMContext<Genre>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
-        var genres = genre_context.ReadAll("Genres");
+        var moviedatas = movieDataRepository.GetMovieData();
 
-        var country_context = new ORMContext<Country>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
-        var countries = country_context.ReadAll("Countrys");
+        var genres = genreRepository.GetGenres();
+
+        var countries = countryRepository.GetCountries();
 
         var templateEngine = new HtmlTemplateEngine();
         var model = new
@@ -153,14 +156,14 @@ public class AdminEndpoint : EndpointBase
     {
         try
         {
-            var user_context = new ORMContext<User>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
+            var userRepository = new UserRepository();
             User newUser = new User
             {
                 Login = addUserLogin,
                 Password = addUserPassword
             };
-            user_context.Create(newUser);
-            var user = user_context.GetUserByLogin(addUserLogin);
+            userRepository.CreateUser(newUser);
+            var user = userRepository.GetUserById(newUser.Id);
             return Json(user);
         }
         catch (Exception ex)
@@ -182,12 +185,12 @@ public class AdminEndpoint : EndpointBase
         try
         {
             Console.WriteLine(deleteUserId);
-            var user_context = new ORMContext<User>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
+            var userRepository = new UserRepository();
             if (deleteUserId != null)
             {
-                user_context.Delete(deleteUserId, "Users");
+                userRepository.DeleteUser(Convert.ToInt32(deleteUserId));
             }
-            return Json(user_context.GetAll());
+            return Json(userRepository.GetUsers());
         }
         catch (Exception ex)
         {
@@ -210,7 +213,7 @@ public class AdminEndpoint : EndpointBase
         try
         {
             Console.WriteLine($"Adding movie with title: {addTitle}, image URL: {addImageUrl}");
-            var movie_context = new ORMContext<Movie>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
+            var movieRepository = new MovieRepository();
 
             Movie newMovie = new Movie
             {
@@ -218,10 +221,10 @@ public class AdminEndpoint : EndpointBase
                 ImageUrl = addImageUrl
             };
             Console.WriteLine("Attempting to add movie to the database...");
-            movie_context.CreateMovie(newMovie);
+            movieRepository.CreateMovie(newMovie);
             Console.WriteLine("Movie added successfully.");
 
-            var movie = movie_context.GetByTitle(addTitle);
+            var movie = movieRepository.GetMovieById(newMovie.MovieId);
             return Json(movie);
         }
         catch (Exception ex)
@@ -243,12 +246,12 @@ public class AdminEndpoint : EndpointBase
         try
         {
             Console.WriteLine(deleteMovieId);
-            var movie_context = new ORMContext<Movie>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
+            var movieRepository = new MovieRepository();
             if (deleteMovieId != null)
             {
-                movie_context.DeleteMovie(deleteMovieId, "Movies");
+                movieRepository.DeleteMovie(Convert.ToInt32(deleteMovieId));
             }
-            return Json(movie_context.GetAll());
+            return Json(movieRepository.GetMovies());
         }
         catch (Exception ex)
         {
@@ -279,7 +282,7 @@ public class AdminEndpoint : EndpointBase
     {
         try
         {
-            var moviedata_context = new ORMContext<MovieData>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
+            var movieDataRepository = new MovieDataRepository();
             MovieData newMovieData = new MovieData
             {
                 MovieId = addMovieDataId, // Убедитесь, что значение для MovieId передается
@@ -296,8 +299,8 @@ public class AdminEndpoint : EndpointBase
                 Cast = addMovieDataCast,
                 MoviePlayer = addMovieDataMoviePlayer
             };
-            moviedata_context.CreateMovieData(newMovieData);
-            var movieData = moviedata_context.GetByTitle(addMovieDataTitle);
+            movieDataRepository.CreateMovieData(newMovieData);
+            var movieData = movieDataRepository.GetMovieDataById(newMovieData.MovieId);
             return Json(movieData);
         }
         catch (Exception ex)
@@ -320,12 +323,12 @@ public class AdminEndpoint : EndpointBase
         try
         {
             Console.WriteLine(deleteMovieDataId);
-            var moviedata_context = new ORMContext<MovieData>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
+            var movieDataRepository = new MovieDataRepository();
             if (deleteMovieDataId != null)
             {
-                moviedata_context.DeleteMovieData(deleteMovieDataId, "MovieDatas");
+                movieDataRepository.DeleteMovieData(Convert.ToInt32(deleteMovieDataId));
             }
-            return Json(moviedata_context.GetAll());
+            return Json(movieDataRepository.GetMovieData());
         }
         catch (Exception ex)
         {
@@ -345,13 +348,13 @@ public class AdminEndpoint : EndpointBase
     {
         try
         {
-            var genre_context = new ORMContext<Genre>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
+            var genreRepository = new GenreRepository();
             Genre newGenre = new Genre
             {
                 GenreName = addGenreName
             };
-            genre_context.Create(newGenre);
-            var genre = genre_context.GetByGenreName(addGenreName);
+            genreRepository.CreateGenre(newGenre);
+            var genre = genreRepository.GetGenreById(newGenre.Id);
             return Json(genre);
         }
         catch (Exception ex)
@@ -373,12 +376,12 @@ public class AdminEndpoint : EndpointBase
         try
         {
             Console.WriteLine(deleteGenreId);
-            var genre_context = new ORMContext<Genre>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
+            var genreRepository = new GenreRepository();
             if (deleteGenreId != null)
             {
-                genre_context.Delete(deleteGenreId, "Genres");
+                genreRepository.DeleteGenre(Convert.ToInt32(deleteGenreId));
             }
-            return Json(genre_context.GetAll());
+            return Json(genreRepository.GetGenres());
         }
         catch (Exception ex)
         {
@@ -398,13 +401,13 @@ public class AdminEndpoint : EndpointBase
     {
         try
         {
-            var country_context = new ORMContext<Country>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
+            var countryRepository = new CountryRepository();
             Country newCountry = new Country
             {
                 CountryName = addCountryName
             };
-            country_context.Create(newCountry);
-            var country = country_context.GetByCountryName(addCountryName);
+            countryRepository.CreateCountry(newCountry);
+            var country = countryRepository.GetCountryById(newCountry.Id);
             return Json(country);
         }
         catch (Exception ex)
@@ -426,17 +429,149 @@ public class AdminEndpoint : EndpointBase
         try
         {
             Console.WriteLine(deleteCountryId);
-            var country_context = new ORMContext<Country>(new SqlConnection(AppConfig.GetInstance().ConnectionString));
+            var countryRepository = new CountryRepository();
             if (deleteCountryId != null)
             {
-                country_context.Delete(deleteCountryId, "Countrys");
+                countryRepository.DeleteCountry(Convert.ToInt32(deleteCountryId));
             }
-            return Json(country_context.GetAll());
+            return Json(countryRepository.GetCountries());
         }
         catch (Exception ex)
         {
             // Логирование ошибки
             Console.WriteLine("Error deleting Country: " + ex.Message);
+            return Json(new { error = ex.Message });
+        }
+    }
+
+    [Post("admin/user/update")]
+    public IHttpResponseResult UpdateUser(int updateUserId, string updateUserLogin, string updateUserPassword)
+    {
+        try
+        {
+            var userRepository = new UserRepository();
+            var existingUser = userRepository.GetUserById(updateUserId);
+            if (existingUser == null)
+            {
+                return Json(new { error = "User not found" });
+            }
+
+            existingUser.Login = updateUserLogin;
+            existingUser.Password = updateUserPassword;
+            userRepository.UpdateUser(existingUser);
+            return Json(userRepository.GetUsers());
+        }
+        catch (Exception ex)
+        {
+            // Логирование ошибки
+            Console.WriteLine("Error updating user: " + ex.Message);
+            return Json(new { error = ex.Message });
+        }
+    }
+
+    [Post("admin/movie/update")]
+    public IHttpResponseResult UpdateMovie(int updateMovieId, string updateTitle, string updateImageUrl)
+    {
+        try
+        {
+            var movieRepository = new MovieRepository();
+            var existingMovie = movieRepository.GetMovieById(Convert.ToInt32(updateMovieId));
+            if (existingMovie == null)
+            {
+                return Json(new { error = "Movie not found" });
+            }
+
+            existingMovie.Title = updateTitle;
+            existingMovie.ImageUrl = updateImageUrl;
+            movieRepository.UpdateMovie(existingMovie);
+            return Json(movieRepository.GetMovies());
+        }
+        catch (Exception ex)
+        {
+            // Логирование ошибки
+            Console.WriteLine("Error updating movie: " + ex.Message);
+            return Json(new { error = ex.Message });
+        }
+    }
+
+
+    [Post("admin/moviedata/update")]
+    public IHttpResponseResult UpdateMovieData(int updateMovieDataId, string updateMovieDataTitle, string updateMovieDataCoverImageUrl, string updateMovieDataDescription, string updateMovieDataOriginalTitle, int updateMovieDataYear, string updateMovieDataCountry, string updateMovieDataGenre, string updateMovieDataQuality, string updateMovieDataSound, string updateMovieDataDirector, string updateMovieDataCast, string updateMovieDataMoviePlayer)
+    {
+        try
+        {
+            var movieDataRepository = new MovieDataRepository();
+            var existingMovieData = movieDataRepository.GetMovieDataById(updateMovieDataId);
+            if (existingMovieData == null)
+            {
+                return Json(new { error = "MovieData not found" });
+            }
+
+            existingMovieData.Title = updateMovieDataTitle;
+            existingMovieData.CoverImageUrl = updateMovieDataCoverImageUrl;
+            existingMovieData.Description = updateMovieDataDescription;
+            existingMovieData.OriginalTitle = updateMovieDataOriginalTitle;
+            existingMovieData.Year = updateMovieDataYear;
+            existingMovieData.Country = updateMovieDataCountry;
+            existingMovieData.Genre = updateMovieDataGenre;
+            existingMovieData.Quality = updateMovieDataQuality;
+            existingMovieData.Sound = updateMovieDataSound;
+            existingMovieData.Director = updateMovieDataDirector;
+            existingMovieData.Cast = updateMovieDataCast;
+            existingMovieData.MoviePlayer = updateMovieDataMoviePlayer;
+            movieDataRepository.UpdateMovieData(existingMovieData);
+            return Json(movieDataRepository.GetMovieData());
+        }
+        catch (Exception ex)
+        {
+            // Логирование ошибки
+            Console.WriteLine("Error updating MovieData: " + ex.Message);
+            return Json(new { error = ex.Message });
+        }
+    }
+
+    [Post("admin/genre/update")]
+    public IHttpResponseResult UpdateGenre(int updateGenreId, string updateGenreName)
+    {
+        try
+        {
+            var genreRepository = new GenreRepository();
+            var existingGenre = genreRepository.GetGenreById(updateGenreId);
+            if (existingGenre == null)
+            {
+                return Json(new { error = "Genre not found" });
+            }
+
+            existingGenre.GenreName = updateGenreName;
+            genreRepository.UpdateGenre(existingGenre);
+            return Json(genreRepository.GetGenres());
+        }
+        catch (Exception ex)
+        {
+            // Логирование ошибки
+            Console.WriteLine("Error updating Genre: " + ex.Message);
+            return Json(new { error = ex.Message });
+        }
+    }
+
+    [Post("admin/country/update")]
+    public IHttpResponseResult UpdateCountry(int updateCountryId, string updateCountryName)
+    {
+        try
+        {
+            var countryRepository = new CountryRepository();
+            Country updatedCountry = new Country
+            {
+                Id = updateCountryId,
+                CountryName = updateCountryName
+            };
+            countryRepository.UpdateCountry(updatedCountry);
+            return Json(countryRepository.GetCountries());
+        }
+        catch (Exception ex)
+        {
+            // Логирование ошибки
+            Console.WriteLine("Error updating Country: " + ex.Message);
             return Json(new { error = ex.Message });
         }
     }
