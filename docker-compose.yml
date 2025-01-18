@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  my-http:
+    image: ${DOCKER_REGISTRY-}myhttp
+    build:
+      context: .
+      dockerfile: my-http/Dockerfile
+    ports:
+      - "8888:8888"
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=Users;User Id=sa;Password=P@ssw0rd;
+    depends_on:
+      - db
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "P@ssw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
