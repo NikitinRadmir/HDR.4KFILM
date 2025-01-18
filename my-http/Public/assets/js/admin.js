@@ -1,16 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Обработчик для формы добавления пользователя
+    // Handler for the user addition form
     document.getElementById('add-user-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault(); // Prevent the default form submission
 
         const form = event.target;
 
-        // Формируем данные из формы
+        // Form data
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         try {
-            // Выполняем AJAX-запрос
+            // Perform AJAX request
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -20,46 +20,46 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (!response.ok) {
-                throw new Error('Ошибка при отправке данных');
+                throw new Error('Error sending data');
             }
 
             const result = await response.json();
             if (result == false) {
-                alert('Такой пользователь уже есть');
-                throw new Error('Такой пользователь уже есть');
+                alert('User already exists');
+                throw new Error('User already exists');
             }
 
-            // Создаем новую строку таблицы
+            // Create a new table row
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
                 <td>${result.Id}</td>
                 <td>${result.Login}</td>
                 <td>${result.Password}</td>
             `;
-            // Находим таблицу и добавляем новую строку
+            // Find the table and add the new row
             const table = document.getElementById('userTableBody');
             table.appendChild(newRow);
             document.getElementById('addUserLogin').value = '';
             document.getElementById('addUserPassword').value = '';
-            alert('Вы успешно добавили пользователя!')
+            alert('You have successfully added a user!')
 
         } catch (error) {
-            alert('Ошибка при добавлении пользователя: ' + error.message);
+            alert('Error adding user: ' + error.message);
         }
     });
 
-    // Обработчик для формы добавления фильма
+    // Handler for the movie addition form
     document.getElementById('add-movie-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault(); // Prevent the default form submission
 
         const form = event.target;
 
-        // Формируем данные из формы
+        // Form data
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         try {
-            // Выполняем AJAX-запрос
+            // Perform AJAX request
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -69,56 +69,56 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (!response.ok) {
-                throw new Error('Ошибка при отправке данных');
+                throw new Error('Error sending data');
             }
 
             const result = await response.json();
             if (result == false) {
-                alert('Такой фильм уже есть');
-                throw new Error('Такой фильм уже есть');
+                alert('Movie already exists');
+                throw new Error('Movie already exists');
             }
 
-            // Создаем новую строку таблицы
+            // Create a new table row
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
             <td>${result.MovieId}</td>
             <td>${result.Title}</td>
             <td>${result.ImageUrl}</td>
         `;
-            // Находим таблицу и добавляем новую строку
+            // Find the table and add the new row
             const table = document.getElementById('movieTableBody');
             table.appendChild(newRow);
             document.getElementById('addTitle').value = '';
             document.getElementById('addImageUrl').value = '';
 
-            alert('Вы успешно добавили фильм!')
+            alert('You have successfully added a movie!')
 
         } catch (error) {
-            alert('Ошибка при добавлении фильма: ' + error.message);
+            alert('Error adding movie: ' + error.message);
         }
     });
 
-    // Обработчик для формы добавления MovieData
+    // Handler for the MovieData addition form
     document.getElementById('add-moviedata-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault(); // Prevent the default form submission
 
         const form = event.target;
 
-        // Формируем данные из формы
+        // Form data
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         const addMovieDataId = form.querySelector('#addMovieDataId').value;
         const addMovieDataYear = form.querySelector('#addMovieDataYear').value;
 
-        // Проверка, что MovieId и Year являются числами и положительными
+        // Check that MovieId and Year are numbers and positive
         if (isNaN(addMovieDataId) || isNaN(addMovieDataYear) || parseInt(addMovieDataId) <= 0 || parseInt(addMovieDataYear) <= 0) {
-            alert('MovieId и Year должны быть положительными числами.');
+            alert('MovieId and Year must be positive numbers.');
             return;
         }
 
         try {
-            // Выполняем AJAX-запрос
+            // Perform AJAX request
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -128,16 +128,16 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (!response.ok) {
-                throw new Error('Ошибка при отправке данных');
+                throw new Error('Error sending data');
             }
 
             const result = await response.json();
             if (result == false) {
-                alert('Такой MovieData уже есть');
-                throw new Error('Такой MovieData уже есть');
+                alert('This MovieData already exists');
+                throw new Error('This MovieData already exists');
             }
 
-            // Создаем новую строку таблицы
+            // Create a new table row
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
             <td>${result.MovieId}</td>
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <td>${result.Cast}</td>
             <td>${result.MoviePlayer}</td>
         `;
-            // Находим таблицу и добавляем новую строку
+            // Find the table and add the new row
             const table = document.getElementById('movieDataTableBody');
             table.appendChild(newRow);
             document.getElementById('addMovieDataId').value = '';
@@ -171,26 +171,25 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('addMovieDataCast').value = '';
             document.getElementById('addMovieDataMoviePlayer').value = '';
 
-            alert('Вы успешно добавили MovieData!')
+            alert('You have successfully added MovieData!')
 
         } catch (error) {
-            alert('Ошибка при добавлении MovieData: ' + error.message);
+            alert('Error adding MovieData: ' + error.message);
         }
     });
 
-
-    // Обработчик для формы добавления Genre
+    // Handler for the Genre addition form
     document.getElementById('add-genre-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault(); // Prevent the default form submission
 
         const form = event.target;
 
-        // Формируем данные из формы
+        // Form data
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         try {
-            // Выполняем AJAX-запрос
+            // Perform AJAX request
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -200,45 +199,45 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (!response.ok) {
-                throw new Error('Ошибка при отправке данных');
+                throw new Error('Error sending data');
             }
 
             const result = await response.json();
             if (result == false) {
-                alert('Такой Genre уже есть');
-                throw new Error('Такой Genre уже есть');
+                alert('This Genre already exists');
+                throw new Error('This Genre already exists');
             }
 
-            // Создаем новую строку таблицы
+            // Create a new table row
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
                 <td>${result.Id}</td>
                 <td>${result.GenreName}</td>
             `;
-            // Находим таблицу и добавляем новую строку
+            // Find the table and add the new row
             const table = document.getElementById('genreTableBody');
             table.appendChild(newRow);
             document.getElementById('addGenreName').value = '';
 
-            alert('Вы успешно добавили Genre!')
+            alert('You have successfully added a Genre!')
 
         } catch (error) {
-            alert('Ошибка при добавлении Genre: ' + error.message);
+            alert('Error adding Genre: ' + error.message);
         }
     });
 
-    // Обработчик для формы добавления Country
+    // Handler for the Country addition form
     document.getElementById('add-country-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault(); // Prevent the default form submission
 
         const form = event.target;
 
-        // Формируем данные из формы
+        // Form data
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         try {
-            // Выполняем AJAX-запрос
+            // Perform AJAX request
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -248,45 +247,45 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (!response.ok) {
-                throw new Error('Ошибка при отправке данных');
+                throw new Error('Error sending data');
             }
 
             const result = await response.json();
             if (result == false) {
-                alert('Такая Country уже есть');
-                throw new Error('Такая Country уже есть');
+                alert('This Country already exists');
+                throw new Error('This Country already exists');
             }
 
-            // Создаем новую строку таблицы
+            // Create a new table row
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
                 <td>${result.Id}</td>
                 <td>${result.CountryName}</td>
             `;
-            // Находим таблицу и добавляем новую строку
+            // Find the table and add the new row
             const table = document.getElementById('countryTableBody');
             table.appendChild(newRow);
             document.getElementById('addCountryName').value = '';
 
-            alert('Вы успешно добавили Country!')
+            alert('You have successfully added a Country!')
 
         } catch (error) {
-            alert('Ошибка при добавлении Country: ' + error.message);
+            alert('Error adding Country: ' + error.message);
         }
     });
 
-    // Обработчик для формы удаления пользователя
+    // Handler for the user deletion form
     document.getElementById('delete-user-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault(); // Prevent the default form submission
 
         const form = event.target;
 
-        // Формируем данные из формы
+        // Form data
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         try {
-            // Выполняем AJAX-запрос
+            // Perform AJAX request
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -297,22 +296,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error('Ошибка при отправке данных: ' + errorText);
+                throw new Error('Error sending data: ' + errorText);
             }
 
             const result = await response.json();
 
-            // Проверяем, есть ли ошибка в ответе
+            // Check for errors in the response
             if (result.error) {
-                alert('Ошибка при удалении пользователя: ' + result.error);
+                alert('Error deleting user: ' + result.error);
                 return;
             }
 
-            // Очищаем таблицу
+            // Clear the table
             const tableBody = document.getElementById('userTableBody');
             tableBody.innerHTML = '';
 
-            // Обновляем таблицу новыми данными
+            // Update the table with new data
             result.forEach(user => {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
@@ -324,22 +323,22 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
         } catch (error) {
-            alert('Ошибка при удалении пользователя: ' + error.message);
+            alert('Error deleting user: ' + error.message);
         }
     });
 
-    // Обработчик для формы удаления фильма
+    // Handler for the movie deletion form
     document.getElementById('delete-movie-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault(); // Prevent the default form submission
 
         const form = event.target;
 
-        // Формируем данные из формы
+        // Form data
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         try {
-            // Выполняем AJAX-запрос
+            // Perform AJAX request
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -350,22 +349,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error('Ошибка при отправке данных: ' + errorText);
+                throw new Error('Error sending data: ' + errorText);
             }
 
             const result = await response.json();
 
-            // Проверяем, есть ли ошибка в ответе
+            // Check for errors in the response
             if (result.error) {
-                alert('Ошибка при удалении фильма: ' + result.error);
+                alert('Error deleting movie: ' + result.error);
                 return;
             }
 
-            // Очищаем таблицу
+            // Clear the table
             const tableBody = document.getElementById('movieTableBody');
             tableBody.innerHTML = '';
 
-            // Обновляем таблицу новыми данными
+            // Update the table with new data
             result.forEach(movie => {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
@@ -377,22 +376,22 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
         } catch (error) {
-            alert('Ошибка при удалении фильма: ' + error.message);
+            alert('Error deleting movie: ' + error.message);
         }
     });
 
-    // Обработчик для формы удаления MovieData
+    // Handler for the MovieData deletion form
     document.getElementById('delete-moviedata-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault(); // Prevent the default form submission
 
         const form = event.target;
 
-        // Формируем данные из формы
+        // Form data
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         try {
-            // Выполняем AJAX-запрос
+            // Perform AJAX request
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -403,22 +402,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error('Ошибка при отправке данных: ' + errorText);
+                throw new Error('Error sending data: ' + errorText);
             }
 
             const result = await response.json();
 
-            // Проверяем, есть ли ошибка в ответе
+            // Check for errors in the response
             if (result.error) {
-                alert('Ошибка при удалении MovieData: ' + result.error);
+                alert('Error deleting MovieData: ' + result.error);
                 return;
             }
 
-            // Очищаем таблицу
+            // Clear the table
             const tableBody = document.getElementById('movieDataTableBody');
             tableBody.innerHTML = '';
 
-            // Обновляем таблицу новыми данными
+            // Update the table with new data
             result.forEach(movieData => {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
@@ -440,22 +439,22 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
         } catch (error) {
-            alert('Ошибка при удалении MovieData: ' + error.message);
+            alert('Error deleting MovieData: ' + error.message);
         }
     });
 
-    // Обработчик для формы удаления Genre
+    // Handler for the Genre deletion form
     document.getElementById('delete-genre-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault(); // Prevent the default form submission
 
         const form = event.target;
 
-        // Формируем данные из формы
+        // Form data
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         try {
-            // Выполняем AJAX-запрос
+            // Perform AJAX request
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -466,22 +465,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error('Ошибка при отправке данных: ' + errorText);
+                throw new Error('Error sending data: ' + errorText);
             }
 
             const result = await response.json();
 
-            // Проверяем, есть ли ошибка в ответе
+            // Check for errors in the response
             if (result.error) {
-                alert('Ошибка при удалении Genre: ' + result.error);
+                alert('Error deleting Genre: ' + result.error);
                 return;
             }
 
-            // Очищаем таблицу
+            // Clear the table
             const tableBody = document.getElementById('genreTableBody');
             tableBody.innerHTML = '';
 
-            // Обновляем таблицу новыми данными
+            // Update the table with new data
             result.forEach(genre => {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
@@ -492,22 +491,22 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
         } catch (error) {
-            alert('Ошибка при удалении Genre: ' + error.message);
+            alert('Error deleting Genre: ' + error.message);
         }
     });
 
-    // Обработчик для формы удаления Country
+    // Handler for the Country deletion form
     document.getElementById('delete-country-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault(); // Prevent the default form submission
 
         const form = event.target;
 
-        // Формируем данные из формы
+        // Form data
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         try {
-            // Выполняем AJAX-запрос
+            // Perform AJAX request
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -518,22 +517,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error('Ошибка при отправке данных: ' + errorText);
+                throw new Error('Error sending data: ' + errorText);
             }
 
             const result = await response.json();
 
-            // Проверяем, есть ли ошибка в ответе
+            // Check for errors in the response
             if (result.error) {
-                alert('Ошибка при удалении Country: ' + result.error);
+                alert('Error deleting Country: ' + result.error);
                 return;
             }
 
-            // Очищаем таблицу
+            // Clear the table
             const tableBody = document.getElementById('countryTableBody');
             tableBody.innerHTML = '';
 
-            // Обновляем таблицу новыми данными
+            // Update the table with new data
             result.forEach(country => {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
@@ -544,24 +543,21 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
         } catch (error) {
-            alert('Ошибка при удалении Country: ' + error.message);
+            alert('Error deleting Country: ' + error.message);
         }
     });
 
-    
-
-    // Обработчик для формы обновления Country
+    // Handler for the User update form
     document.getElementById('update-user-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault();
 
         const form = event.target;
 
-        // Формируем данные из формы
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         try {
-            // Выполняем AJAX-запрос
+
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -572,46 +568,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error('Ошибка при отправке данных: ' + errorText);
+                throw new Error('Error: ' + errorText);
             }
 
             const result = await response.json();
+            if (result == false) {
+                throw new Error('This user does not exist');
+            }
 
             if (result.error) {
-                alert('Ошибка при обновлении User: ' + result.error);
+                alert('Error. Incorrect ID');
                 return;
             }
 
-            // Обновляем строку таблицы
-            const table = document.getElementById('userTableBody');
-            const row = table.querySelector(`tr[data-id="${result.Id}"]`);
-            if (row) {
-                row.innerHTML = `
-                <td>${result.Id}</td>
-                <td>${result.Login}</td>
-                <td>${result.Password}</td>
-            `;
-            }
-                    
+            const tableBody = document.getElementById('userTableBody');
+            tableBody.innerHTML = '';
 
-            alert('Вы успешно обновили пользователя!')
+            result.forEach(user => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${user.Id}</td>
+                    <td>${user.Login}</td>
+                    <td>${user.Password}</td>
+                `;
+                tableBody.appendChild(newRow);
+
+            });
+            alert('User updated successfully!')
 
         } catch (error) {
-            alert('Ошибка при обновлении пользователя: ' + error.message);
+            alert('Error: ' + error.message);
         }
     });
 
     document.getElementById('update-movie-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault(); // Prevent the default form submission
 
         const form = event.target;
 
-        // Формируем данные из формы
+        // Form data
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         try {
-            // Выполняем AJAX-запрос
+            // Perform AJAX request
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -622,45 +622,48 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error('Ошибка при отправке данных: ' + errorText);
+                throw new Error('Error sending data: ' + errorText);
             }
 
             const result = await response.json();
 
             if (result.error) {
-                alert('Ошибка при обновлении Movie: ' + result.error);
+                alert('Error updating Movie: ' + result.error);
                 return;
             }
 
-            // Обновляем строку таблицы
-            const table = document.getElementById('movieTableBody');
-            const row = table.querySelector(`tr[data-id="${result.MovieId}"]`);
-            if (row) {
-                row.innerHTML = `
-                <td>${result.MovieId}</td>
-                <td>${result.Title}</td>
-                <td>${result.ImageUrl}</td>
-            `;
-            }
+            // Update the table row
+            const tableBody = document.getElementById('movieTableBody');
+            tableBody.innerHTML = '';
 
-            alert('Вы успешно обновили фильм!')
+            result.forEach(movie => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${movie.MovieId}</td>
+                    <td>${movie.Title}</td>
+                    <td>${movie.ImageUrl}</td>
+                `;
+                tableBody.appendChild(newRow);
+
+            });
+            alert('Movie updated successfully!')
 
         } catch (error) {
-            alert('Ошибка при обновлении фильма: ' + error.message);
+            alert('Error updating movie: ' + error.message);
         }
     });
 
     document.getElementById('update-moviedata-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault(); // Prevent the default form submission
 
         const form = event.target;
 
-        // Формируем данные из формы
+        // Form data
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         try {
-            // Выполняем AJAX-запрос
+            // Perform AJAX request
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -671,55 +674,60 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error('Ошибка при отправке данных: ' + errorText);
+                throw new Error('Error sending data: ' + errorText);
             }
 
             const result = await response.json();
 
             if (result.error) {
-                alert('Ошибка при обновлении MovieData: ' + result.error);
+                alert('Error updating MovieData: ' + result.error);
                 return;
             }
 
-            // Обновляем строку таблицы
-            const table = document.getElementById('movieDataTableBody');
-            const row = table.querySelector(`tr[data-id="${result.MovieId}"]`);
-            if (row) {
-                row.innerHTML = `
-                <td>${result.MovieId}</td>
-                <td>${result.Title}</td>
-                <td>${result.CoverImageUrl}</td>
-                <td>${result.Description}</td>
-                <td>${result.OriginalTitle}</td>
-                <td>${result.Year}</td>
-                <td>${result.Country}</td>
-                <td>${result.Genre}</td>
-                <td>${result.Quality}</td>
-                <td>${result.Sound}</td>
-                <td>${result.Director}</td>
-                <td>${result.Cast}</td>
-                <td>${result.MoviePlayer}</td>
-            `;
-            }
+            // Update the table row
+            
 
-            alert('Вы успешно обновили MovieData!')
+            const tableBody = document.getElementById('movieDataTableBody');
+            tableBody.innerHTML = '';
+
+            result.forEach(movieData => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${movieDataMovieId}</td>
+                <td>${movieDataTitle}</td>
+                <td>${movieData.CoverImageUrl}</td>
+                <td>${movieData.Description}</td>
+                <td>${movieData.OriginalTitle}</td>
+                <td>${movieData.Year}</td>
+                <td>${movieData.Country}</td>
+                <td>${movieData.Genre}</td>
+                <td>${movieData.Quality}</td>
+                <td>${movieData.Sound}</td>
+                <td>${movieData.Director}</td>
+                <td>${movieData.Cast}</td>
+                <td>${movieData.MoviePlayer}</td>
+                `;
+                tableBody.appendChild(newRow);
+
+            });
+            alert('MovieData updated successfully!')
 
         } catch (error) {
-            alert('Ошибка при обновлении MovieData: ' + error.message);
+            alert('Error updating MovieData: ' + error.message);
         }
     });
 
     document.getElementById('update-genre-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault(); // Prevent the default form submission
 
         const form = event.target;
 
-        // Формируем данные из формы
+        // Form data
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         try {
-            // Выполняем AJAX-запрос
+            // Perform AJAX request
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -730,44 +738,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error('Ошибка при отправке данных: ' + errorText);
+                throw new Error('Error sending data: ' + errorText);
             }
 
             const result = await response.json();
 
             if (result.error) {
-                alert('Ошибка при обновлении Genre: ' + result.error);
+                alert('Error updating Genre: ' + result.error);
                 return;
             }
 
-            // Обновляем строку таблицы
-            const table = document.getElementById('genreTableBody');
-            const row = table.querySelector(`tr[data-id="${result.Id}"]`);
-            if (row) {
-                row.innerHTML = `
-                <td>${result.Id}</td>
-                <td>${result.GenreName}</td>
-            `;
-            }
+            // Update the table row
+            const tableBody = document.getElementById('genreTableBody');
+            tableBody.innerHTML = '';
 
-            alert('Вы успешно обновили жанр!')
+            result.forEach(genre => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${genre.Id}</td>
+                <td>${genre.GenreName}</td>
+                `;
+                tableBody.appendChild(newRow);
+
+            });
+            alert('Genre updated successfully!')
 
         } catch (error) {
-            alert('Ошибка при обновлении жанра: ' + error.message);
+            alert('Error updating genre: ' + error.message);
         }
     });
 
     document.getElementById('update-country-form').addEventListener('submit', async function (event) {
-        event.preventDefault(); // Предотвращаем стандартную отправку формы
+        event.preventDefault(); // Prevent the default form submission
 
         const form = event.target;
 
-        // Формируем данные из формы
+        // Form data
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
         try {
-            // Выполняем AJAX-запрос
+            // Perform AJAX request
             const response = await fetch(form.action, {
                 method: form.method,
                 headers: {
@@ -778,30 +789,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error('Ошибка при отправке данных: ' + errorText);
+                throw new Error('Error sending data: ' + errorText);
             }
 
             const result = await response.json();
 
             if (result.error) {
-                alert('Ошибка при обновлении Country: ' + result.error);
+                alert('Error updating Country: ' + result.error);
                 return;
             }
 
-            // Обновляем строку таблицы
-            const table = document.getElementById('countryTableBody');
-            const row = table.querySelector(`tr[data-id="${result.Id}"]`);
-            if (row) {
-                row.innerHTML = `
-            <td>${result.Id}</td>
-            <td>${result.CountryName}</td>
-        `;
-            }
+            // Update the table row
+            const tableBody = document.getElementById('countryTableBody');
+            tableBody.innerHTML = '';
 
-            alert('Вы успешно обновили страну!')
+            result.forEach(country => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${country.Id}</td>
+                <td>${country.CountryName}</td>
+                `;
+                tableBody.appendChild(newRow);
+
+            });
+            alert('Country updated successfully!')
 
         } catch (error) {
-            alert('Ошибка при обновлении страны: ' + error.message);
+            alert('Error updating country: ' + error.message);
         }
     });
 });
