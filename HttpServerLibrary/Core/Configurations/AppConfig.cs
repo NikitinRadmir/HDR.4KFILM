@@ -34,7 +34,7 @@ public sealed class AppConfig
     /// <summary>
     /// Доступ к бд
     /// </summary>
-    public string ConnectionString { get; set; } = "Data Source = localhost;Initial Catalog=Users;User ID=sa;Password=P@ssw0rd;";
+    public Dictionary<string, string> ConnectionStrings { get; set; }
 
     
     /// <summary>
