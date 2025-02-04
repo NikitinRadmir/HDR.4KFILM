@@ -12,7 +12,7 @@ namespace MyHttpServer.Repositories;
 
 public class MovieRepository
 {
-    private  ORMContext<Movie> _movieContext = new(new SqlConnection(AppConfig.GetInstance().ConnectionString));
+    private  ORMContext<Movie> _movieContext = new(new SqlConnection(AppConfig.GetInstance().ConnectionStrings["DefaultConnection"]));
 
     public List<Movie> GetMovies()
     {
