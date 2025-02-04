@@ -12,8 +12,7 @@ namespace MyHttpServer.Repositories;
 
 public class GenreRepository
 {
-    private ORMContext<Genre> _genreContext = new(new SqlConnection(AppConfig.GetInstance().ConnectionString));
-
+    private ORMContext<Genre> _genreContext = new(new SqlConnection(AppConfig.GetInstance().ConnectionStrings["DefaultConnection"]));
     public List<Genre> GetGenres()
     {
         return _genreContext.ReadAll();
