@@ -12,7 +12,7 @@ namespace MyHttpServer.Repositories;
 
 public class UserRepository
 {
-    private ORMContext<User> _userContext = new(new SqlConnection(AppConfig.GetInstance().ConnectionString));
+    private ORMContext<User> _userContext = new(new SqlConnection(AppConfig.GetInstance().ConnectionStrings["DefaultConnection"]));
 
     public List<User> GetUsers()
     {
