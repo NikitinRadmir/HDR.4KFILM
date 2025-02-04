@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   my-http:
-    image: ${DOCKER_REGISTRY-}myhttp
+    image: ${DOCKER_REGISTRY-}myhttpserver
     build:
       context: .
       dockerfile: my-http/Dockerfile
