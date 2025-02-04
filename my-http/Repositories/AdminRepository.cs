@@ -12,8 +12,7 @@ namespace MyHttpServer.Repositories;
 
 public class AdminRepository
 {
-    private ORMContext<Admin> _adminContext = new(new SqlConnection(AppConfig.GetInstance().ConnectionString));
-
+    private ORMContext<Admin> _adminContext = new(new SqlConnection(AppConfig.GetInstance().ConnectionStrings["DefaultConnection"]));
     public List<Admin> GetAdmins()
     {
         return _adminContext.ReadAll();
