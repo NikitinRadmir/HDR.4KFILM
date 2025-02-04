@@ -12,7 +12,7 @@ namespace MyHttpServer.Repositories;
 
 public class CountryRepository
 {
-    private ORMContext<Country> _countryContext = new(new SqlConnection(AppConfig.GetInstance().ConnectionString));
+    private ORMContext<Country> _countryContext = new(new SqlConnection(AppConfig.GetInstance().ConnectionStrings["DefaultConnection"]));
 
     public List<Country> GetCountries()
     {
